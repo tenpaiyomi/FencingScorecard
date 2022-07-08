@@ -1,0 +1,29 @@
+common: &common
+  adapter: postgresql
+  encoding: unicode
+  timeout: 500000
+  reconnect: true
+  pool: 30
+  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+
+login: &login
+  username: <%= ENV['DATABASE_USER'] || 'scorecard_admin' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || '' %>
+
+development:
+  database: scorecard_dev
+  <<: *common
+  <<: *login
+
+test:
+  database: scorecard_test
+  <<: *common
+  <<: *login
+
+production: &production
+  database: scorecard_production
+  <<: *common
+  <<: *login
+
+staging:
+  <<: *production
